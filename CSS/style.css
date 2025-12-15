@@ -1,0 +1,386 @@
+/* Import Roboto Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+    --bg-color: #FAF9F6;
+    --text-color: #121212;
+    --accent-light: #E5E5E5;
+    --accent-gray: #A0A0A0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- FIXED HEADER --- */
+header {
+    background-color: var(--bg-color);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    /* Spreads Logo, Search, Nav */
+    align-items: center;
+    /* Vertically centers them */
+    border-bottom: 1px solid var(--accent-light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-link img {
+    height: auto;
+    /* Adjust size as needed, removes the huge margin issue */
+    width: 300px;
+}
+
+/* New Search Bar Styles */
+.search-form {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Allows search to take available space */
+    max-width: 400px;
+    /* Prevents it from getting too big */
+    margin: 0 40px;
+    /* Spacing from logo and nav */
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--accent-gray);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    margin: 0;
+}
+
+.search-btn {
+    padding: 11px 15px;
+    background: var(--text-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+nav a:hover {
+    color: var(--accent-gray);
+}
+
+/* --- NIKE STYLE SIZE GRID --- */
+.size-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 boxes per row */
+    gap: 10px;
+    margin: 15px 0 25px 0;
+}
+
+.size-radio {
+    display: none;
+    /* Hides the actual circle button */
+}
+
+.size-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.size-box:hover {
+    border-color: #121212;
+}
+
+/* When selected */
+.size-radio:checked+.size-box {
+    background-color: #121212;
+    color: #FAF9F6;
+    border-color: #121212;
+}
+
+/* --- LAYOUT UTILITIES --- */
+.container {
+    padding: 40px 5%;
+    flex: 1;
+}
+
+h1,
+h2 {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--accent-gray);
+    color: var(--text-color);
+}
+
+.form-box {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid var(--accent-light);
+    background: white;
+}
+
+/* Category Tabs */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tab-link {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 10px 20px;
+    border: 1px solid var(--accent-light);
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.tab-link:hover,
+.tab-link.active {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid var(--accent-light);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--text-color);
+}
+
+.product-card img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-weight: 700;
+    margin: 10px 0;
+    display: block;
+}
+
+/* Details Page */
+.product-detail-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    background: white;
+    padding: 40px;
+    border: 1px solid var(--accent-light);
+}
+
+.detail-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.detail-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid var(--accent-light);
+}
+
+/* Footer */
+footer {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    text-align: center;
+    padding: 40px 0;
+    margin-top: auto;
+}
+
+/* --- PREMIUM AUTH FORMS (Login/Signup) --- */
+
+/* Center the form on the screen */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    /* Takes up most of the screen height */
+    padding: 20px;
+}
+
+/* The Card Container */
+.form-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    /* Limits width for a clean look */
+    padding: 40px;
+    border: 1px solid var(--accent-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    /* Subtle luxury shadow */
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Headings */
+.form-box h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-color);
+}
+
+.form-box p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+/* Inputs & Textarea */
+.form-box input,
+.form-box textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    border: 1px solid var(--accent-light);
+    background-color: #FAFAFA;
+    /* Very light gray inside input */
+    border-radius: 4px;
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* Input Focus State (Active) */
+.form-box input:focus,
+.form-box textarea:focus {
+    border-color: var(--text-color);
+    /* Turns black on click */
+    background-color: #fff;
+}
+
+/* Labels (Optional, but good for accessibility) */
+.form-box label {
+    display: block;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* The Button */
+.form-box .btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+/* Links (Forgot Password / Sign Up) */
+.form-box a {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.form-box a:hover {
+    color: var(--accent-gray);
+}
+
+/* Link Container spacing */
+.form-footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}

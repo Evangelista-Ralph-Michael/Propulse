@@ -1,0 +1,117 @@
+DROP DATABASE IF EXISTS propulse;
+CREATE DATABASE propulse;
+USE propulse;
+
+-- Users Table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    address TEXT,
+    phone VARCHAR(20),
+    reset_token VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products Table
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image_url VARCHAR(255),
+    category VARCHAR(50),
+    sizes TEXT, -- Stores sizes like "US 7,US 8,US 9"
+    stock INT DEFAULT 100,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cart Table
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    size VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Orders Table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    shipping_address TEXT NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Insert Dummy Products
+INSERT INTO products (name, description, price, category, sizes, image_url) VALUES 
+('Curry 12', 'Unleash your speed. Own the court.', 6785.00, 'Under Armour', 'US 8,US 9,US 10,US 11', 'https://i.pinimg.com/1200x/1e/b4/b5/1eb4b5c4ae12cdde95d720bce028b2b0.jpg'),
+('Jordan 1 Retro High', 'The shoe that started it all.', 9895.00, 'Nike', 'US 7,US 8,US 9,US 10', 'https://i.pinimg.com/736x/0d/7e/48/0d7e486b3caf7284693b8607f46f0dd7.jpg'),
+('Kyrie 5 Spongebob', 'Who lives in a pineapple under the sea?', 7695.00, 'Nike', 'US 8,US 9,US 10', 'https://i.pinimg.com/736x/ef/88/1c/ef881c38d17492b2d7bc17f8096ab5de.jpg'),
+('Nike Tech Fleece', 'Lightweight warmth.', 4200.00, 'Nike', 'S,M,L,XL', 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e6605030-9759-454c-a1eb-213fa55c4d02/sportswear-tech-fleece-windrunner-mens-full-zip-hoodie-8X4j5N.png');
+
+
+
+DROP DATABASE IF EXISTS propulse;
+CREATE DATABASE propulse;
+USE propulse;
+
+-- Users Table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    address TEXT,
+    phone VARCHAR(20),
+    reset_token VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products Table
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image_url VARCHAR(255),
+    category VARCHAR(50),
+    sizes TEXT, -- Stores sizes like "US 7,US 8,US 9"
+    stock INT DEFAULT 100,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cart Table
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    size VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Orders Table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    shipping_address TEXT NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Insert Dummy Products (With Sizes)
+INSERT INTO products (name, description, price, category, sizes, image_url) VALUES 
+('Curry 12', 'Unleash your speed. Own the court.', 6785.00, 'Under Armour', 'US 8,US 9,US 10,US 11', 'https://i.pinimg.com/1200x/1e/b4/b5/1eb4b5c4ae12cdde95d720bce028b2b0.jpg'),
+('Jordan 1 Retro High', 'The shoe that started it all.', 9895.00, 'Nike', 'US 7,US 8,US 9,US 10', 'https://i.pinimg.com/736x/0d/7e/48/0d7e486b3caf7284693b8607f46f0dd7.jpg'),
+('Kyrie 5 Spongebob', 'Who lives in a pineapple under the sea?', 7695.00, 'Nike', 'US 8,US 9,US 10', 'https://i.pinimg.com/736x/ef/88/1c/ef881c38d17492b2d7bc17f8096ab5de.jpg'),
+('Nike Tech Fleece', 'Lightweight warmth.', 4200.00, 'Nike', 'S,M,L,XL', 'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e6605030-9759-454c-a1eb-213fa55c4d02/sportswear-tech-fleece-windrunner-mens-full-zip-hoodie-8X4j5N.png');

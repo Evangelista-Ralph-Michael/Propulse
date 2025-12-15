@@ -1,0 +1,51 @@
+CREATE DATABASE propulse;
+USE propulse;
+
+-- Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products Table
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image_url VARCHAR(255),
+    category VARCHAR(50),
+    stock INT DEFAULT 100,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cart Table
+CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Orders Table
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Insert Dummy Data for Products
+INSERT INTO products (name, description, price, category, image_url) VALUES 
+('Curry 12', 'Next-level performance with the Curry 12.', 6785.00, 'Shoes', 'https://placehold.co/400x400?text=Curry+12'),
+('Travis Hunter T-Shirt', 'Premium cotton graphic tee.', 1695.00, 'T-shirts', 'https://placehold.co/400x400?text=T-Shirt'),
+('Originals Bag', 'Compact and durable storage.', 1495.00, 'Bags', 'https://placehold.co/400x400?text=Bag'),
+('Tech Fleece Joggers', 'Lightweight warmth for training.', 3200.00, 'Pants', 'https://placehold.co/400x400?text=Joggers');
