@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propulse | Fuel Your Passion</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-link" onclick="navigate('home')">
+            <h2 style="font-weight:800; letter-spacing:2px; font-size:1.8rem;">PROPULSE</h2>
+        </div>
+
+        <form class="search-form" onsubmit="event.preventDefault(); navigate('shop')">
+            <input type="text" class="search-input" placeholder="Search...">
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
+
+        <nav>
+            <ul>
+                <li><a onclick="navigate('home')" id="nav-home" class="active">Home</a></li>
+                <li><a onclick="navigate('shop')" id="nav-shop">Shop</a></li>
+                <li><a onclick="navigate('login')" id="nav-login">Login</a></li>
+                <li><a onclick="navigate('signup')" id="nav-signup" class="btn"
+                        style="padding: 8px 15px; color:white;">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="page-home" class="page-section active">
+        <div
+            style="background-color: var(--accent-light); padding: 80px 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            <div style="max-width: 500px; padding-bottom: 20px;">
+                <h1 style="font-size: 3rem; line-height: 1.2;">UNLEASH YOUR SPEED.</h1>
+                <p style="margin: 20px 0; font-size: 1.1rem;">Fuel Your Passion. Gear Up With Propulse.</p>
+                <button onclick="navigate('shop')" class="btn">Shop Now</button>
+            </div>
+            <img src="https://i.pinimg.com/1200x/8c/1c/9f/8c1c9fffadb47ababfd53d92f7ba1784.jpg" alt="Featured"
+                style="max-width: 500px; width:100%; border-radius: 8px;">
+        </div>
+
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/1e/b4/b5/1eb4b5c4ae12cdde95d720bce028b2b0.jpg" alt="Curry 12">
+                    <h3>Curry 12</h3>
+                    <span class="price">₱6,785.00</span>
+                    <br>
+                    <button onclick="navigate('shop')" class="btn" style="margin-top: 10px;">View</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/0d/7e/48/0d7e486b3caf7284693b8607f46f0dd7.jpg" alt="Jordan 1">
+                    <h3>Jordan 1 Retro High</h3>
+                    <span class="price">₱9,895.00</span>
+                    <br>
+                    <button onclick="navigate('shop')" class="btn" style="margin-top: 10px;">View</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/ef/88/1c/ef881c38d17492b2d7bc17f8096ab5de.jpg" alt="Kyrie 5">
+                    <h3>Kyrie 5 Spongebob</h3>
+                    <span class="price">₱7,695.00</span>
+                    <br>
+                    <button onclick="navigate('shop')" class="btn" style="margin-top: 10px;">View</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-shop" class="page-section">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 20px;">All Products</h1>
+
+            <div class="category-tabs">
+                <a href="#" class="tab-link active">All</a>
+                <a href="#" class="tab-link">Nike</a>
+                <a href="#" class="tab-link">Under Armour</a>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/1200x/1e/b4/b5/1eb4b5c4ae12cdde95d720bce028b2b0.jpg" alt="Curry 12">
+                    <h3>Curry 12</h3>
+                    <p>Under Armour</p>
+                    <div style="color: #f39c12; margin: 5px 0;"><small>⭐⭐⭐⭐⭐ (5)</small></div>
+                    <span class="price">₱6,785.00</span>
+                    <br>
+                    <button onclick="alert('Demo Mode: Details unavailable')" class="btn"
+                        style="margin-top:10px;">View</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/0d/7e/48/0d7e486b3caf7284693b8607f46f0dd7.jpg" alt="Jordan 1">
+                    <h3>Jordan 1 Retro High</h3>
+                    <p>Nike</p>
+                    <div style="color: #f39c12; margin: 5px 0;"><small>⭐⭐⭐⭐☆ (12)</small></div>
+                    <span class="price">₱9,895.00</span>
+                    <br>
+                    <button onclick="alert('Demo Mode: Details unavailable')" class="btn"
+                        style="margin-top:10px;">View</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://i.pinimg.com/736x/ef/88/1c/ef881c38d17492b2d7bc17f8096ab5de.jpg" alt="Kyrie 5">
+                    <h3>Kyrie 5 Spongebob</h3>
+                    <p>Nike</p>
+                    <div style="color: #f39c12; margin: 5px 0;"><small>⭐⭐⭐⭐⭐ (8)</small></div>
+                    <span class="price">₱7,695.00</span>
+                    <br>
+                    <button onclick="alert('Demo Mode: Details unavailable')" class="btn"
+                        style="margin-top:10px;">View</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/e6605030-9759-454c-a1eb-213fa55c4d02/sportswear-tech-fleece-windrunner-mens-full-zip-hoodie-8X4j5N.png"
+                        alt="Tech Fleece">
+                    <h3>Nike Tech Fleece</h3>
+                    <p>Nike</p>
+                    <div style="color: #f39c12; margin: 5px 0;"><small>⭐⭐⭐⭐☆ (3)</small></div>
+                    <span class="price">₱4,200.00</span>
+                    <br>
+                    <button onclick="alert('Demo Mode: Details unavailable')" class="btn"
+                        style="margin-top:10px;">View</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-login" class="page-section">
+        <div class="auth-container">
+            <div class="form-box">
+                <h2>Welcome Back</h2>
+
+                <form onsubmit="event.preventDefault(); alert('Login Successful (Demo)'); navigate('home');">
+                    <label>Email Address</label>
+                    <input type="email" required placeholder="user@example.com">
+
+                    <label>Password</label>
+                    <input type="password" required placeholder="••••••••">
+
+                    <div style="text-align: right; margin-bottom: 20px;">
+                        <a href="#" style="font-size: 0.9rem; color: #666;">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%;">Login</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-signup" class="page-section">
+        <div class="auth-container">
+            <div class="form-box">
+                <h2>Become a Member</h2>
+
+                <form onsubmit="event.preventDefault(); alert('Account Created (Demo)!'); navigate('login');">
+                    <label>Full Name</label>
+                    <input type="text" required>
+
+                    <label>Email Address</label>
+                    <input type="email" required>
+
+                    <label>Phone Number</label>
+                    <input type="text" required>
+
+                    <label>Password (Min 8 chars)</label>
+                    <input type="password" required minlength="8">
+
+                    <label>Shipping Address</label>
+                    <textarea rows="3" required></textarea>
+
+                    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+                </form>
+                <div style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                    Already a member? <a style="text-decoration: underline; cursor: pointer;"
+                        onclick="navigate('login')">Login here</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="text-align:center; padding: 20px;">
+            <p>&copy; 2025 Propulse. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function navigate(pageId) {
+            // 1. Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Show the selected section
+            const activeSection = document.getElementById('page-' + pageId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                window.scrollTo(0, 0); // Scroll to top
+            }
+
+            // 3. Update Navbar Active State
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Optional: remove highlight logic if purely styled by hover
+            });
+        }
+    </script>
+
+</body>
+
+</html>
