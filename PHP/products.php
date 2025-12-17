@@ -7,6 +7,7 @@
         <a href="products.php" class="tab-link">All</a>
         <a href="products.php?category=Nike" class="tab-link">Nike</a>
         <a href="products.php?category=Under Armour" class="tab-link">Under Armour</a>
+        <a href="products.php?category=Adidas" class="tab-link">Adidas</a>
     </div>
 
     <div class="product-grid">
