@@ -51,7 +51,7 @@
                 </div>
 
                 <span class="price">₱<?php echo number_format($row['price'], 2); ?></span>
-                <br>
+
                 <a href="product_details.php?id=<?php echo $row['id']; ?>" class="btn" style="margin-top:10px;">View</a>
             </div>
             <?php
