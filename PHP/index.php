@@ -6,7 +6,7 @@
         <p style="margin: 20px 0; font-size: 1.1rem;">Fuel Your Passion. Gear Up With Propulse.</p>
         <a href="products.php" class="btn">Shop Now</a>
     </div>
-    <img src="https://i.pinimg.com/1200x/8c/1c/9f/8c1c9fffadb47ababfd53d92f7ba1784.jpg" alt="Featured" style="max-width: 50%;">
+    <img src="https://i.pinimg.com/1200x/8c/1c/9f/8c1c9fffadb47ababfd53d92f7ba1784.jpg" alt="Featured" style="max-width: 600px; border-radius: 8px;">
 </div>
 
 <div class="container">
@@ -14,7 +14,7 @@
     <div class="product-grid">
         <?php
         // Fetch 3 random products
-        $stmt = $pdo->query("SELECT * FROM products ORDER BY RAND() LIMIT 4");
+        $stmt = $pdo->query("SELECT * FROM products ORDER BY RAND() LIMIT 8");
         
         while($row = $stmt->fetch()) {
             ?>
