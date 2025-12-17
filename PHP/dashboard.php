@@ -1,10 +1,12 @@
 <?php
+// We manually start session and connect to DB to ensure strict isolation
 session_start();
 require_once 'db_connect.php';
 
 // --- SECURITY GATE ---
+// If not logged in OR not an admin, kick them out immediately.
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    header("Location: index.php"); 
+    header("Location: index.php"); // Redirects regular users to home
     exit();
 }
 
@@ -21,6 +23,7 @@ if (isset($_GET['delete_product'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_product'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
+    $stock = (int)$_POST['stock']; // Added Stock
     $cat = $_POST['category'];
     $desc = $_POST['description'];
     $sizes = $_POST['sizes'];
@@ -50,16 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_product'])) {
     }
 
     if (!empty($_POST['product_id'])) {
-        // Update
-        $sql = "UPDATE products SET name=?, price=?, category=?, description=?, sizes=?, image_url=? WHERE id=?";
+        // Update (Added stock)
+        $sql = "UPDATE products SET name=?, price=?, stock=?, category=?, description=?, sizes=?, image_url=? WHERE id=?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$name, $price, $cat, $desc, $sizes, $image_url, $_POST['product_id']]);
+        $stmt->execute([$name, $price, $stock, $cat, $desc, $sizes, $image_url, $_POST['product_id']]);
         $msg = "Product updated.";
     } else {
-        // Insert
-        $sql = "INSERT INTO products (name, price, category, description, sizes, image_url) VALUES (?, ?, ?, ?, ?, ?)";
+        // Insert (Added stock)
+        $sql = "INSERT INTO products (name, price, stock, category, description, sizes, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$name, $price, $cat, $desc, $sizes, $image_url]);
+        $stmt->execute([$name, $price, $stock, $cat, $desc, $sizes, $image_url]);
         $msg = "Product created.";
     }
 }
@@ -71,6 +74,7 @@ if (isset($_POST['update_status'])) {
     $msg = "Order #" . $_POST['order_id'] . " status updated.";
 }
 
+// --- TAB NAVIGATION HELPER ---
 $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
 ?>
 
@@ -82,6 +86,7 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
     <title>Admin Dashboard | Propulse</title>
     <link rel="stylesheet" href="/WebDev_Project/CSS/style.css"> 
     <style>
+        /* Admin Specific Overrides */
         body { background-color: #f4f6f8; }
         .admin-header { background: #121212; color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
         .admin-header a { color: white; text-decoration: none; font-weight: bold; }
@@ -93,8 +98,11 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
         .sidebar a:hover, .sidebar a.active { background: #121212; color: white; border-radius: 4px; border-bottom: none; }
         
         .main-content { flex: 1; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        
         .status-select { padding: 5px; border-radius: 4px; border: 1px solid #ccc; }
         .alert { background: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border-radius: 4px; }
+        
+        /* Table overrides */
         table { font-size: 0.9rem; }
         th { background: #f8f9fa; }
     </style>
@@ -136,7 +144,16 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <div>
                                 <label>Name</label> <input type="text" name="name" id="p_name" required>
-                                <label>Price</label> <input type="number" step="0.01" name="price" id="p_price" required>
+                                
+                                <div style="display: flex; gap: 10px;">
+                                    <div style="flex:1;">
+                                        <label>Price</label> <input type="number" step="0.01" name="price" id="p_price" required>
+                                    </div>
+                                    <div style="flex:1;">
+                                        <label>Stock</label> <input type="number" name="stock" id="p_stock" required>
+                                    </div>
+                                </div>
+
                                 <label>Category</label> <input type="text" name="category" id="p_cat">
                             </div>
                             <div>
@@ -161,19 +178,21 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
                 <table>
                     <thead>
                         <tr>
-                            <th>Img</th><th>Name</th><th>Price</th><th>Stock</th><th>Actions</th>
+                            <th>Img</th><th>Name</th><th>Price</th><th>Stock</th><th>Category</th><th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $stmt = $pdo->query("SELECT * FROM products ORDER BY id DESC");
                         while ($row = $stmt->fetch()) {
+                            // JSON encode for safe JS handling
                             $jsonData = htmlspecialchars(json_encode($row));
                             echo "<tr>";
                             echo "<td><img src='{$row['image_url']}' width='40'></td>";
                             echo "<td>{$row['name']}</td>";
                             echo "<td>₱".number_format($row['price'], 2)."</td>";
-                            echo "<td>{$row['stock']}</td>";
+                            echo "<td>{$row['stock']}</td>"; // Display Stock
+                            echo "<td>{$row['category']}</td>";
                             echo "<td>
                                     <button onclick='editProduct($jsonData)' style='cursor:pointer; color:blue; background:none; border:none; text-decoration:underline;'>Edit</button> | 
                                     <a href='dashboard.php?tab=products&delete_product={$row['id']}' style='color:red;' onclick='return confirm(\"Delete?\")'>Delete</a>
@@ -190,6 +209,7 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
                         document.getElementById('p_id').value = data.id;
                         document.getElementById('p_name').value = data.name;
                         document.getElementById('p_price').value = data.price;
+                        document.getElementById('p_stock').value = data.stock; // Populate Stock
                         document.getElementById('p_cat').value = data.category;
                         document.getElementById('p_sizes').value = data.sizes;
                         document.getElementById('p_desc').value = data.description;
@@ -210,6 +230,7 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
                         $sql = "SELECT o.*, u.name as customer FROM orders o JOIN users u ON o.user_id = u.id ORDER BY o.created_at DESC";
                         $stmt = $pdo->query($sql);
                         while ($row = $stmt->fetch()) {
+                            // Get items
                             $istmt = $pdo->prepare("SELECT p.name, oi.quantity, oi.size FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id=?");
                             $istmt->execute([$row['id']]);
                             $items = $istmt->fetchAll(PDO::FETCH_ASSOC);
@@ -239,8 +260,29 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'products';
                         ?>
                     </tbody>
                 </table>
+
+            <?php elseif ($tab == 'users'): ?>
+                <h2>User Management</h2>
+                <table>
+                    <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+                    <tbody>
+                        <?php
+                        $stmt = $pdo->query("SELECT * FROM users");
+                        while ($row = $stmt->fetch()) {
+                            echo "<tr>";
+                            echo "<td>{$row['id']}</td>";
+                            echo "<td>{$row['name']}</td>";
+                            echo "<td>{$row['email']}</td>";
+                            echo "<td>" . strtoupper($row['role']) . "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
             <?php endif; ?>
+
         </div>
     </div>
+
 </body>
 </html>
