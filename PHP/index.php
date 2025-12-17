@@ -14,7 +14,7 @@
     <div class="product-grid">
         <?php
         // Fetch 3 random products
-        $stmt = $pdo->query("SELECT * FROM products ORDER BY RAND() LIMIT 3");
+        $stmt = $pdo->query("SELECT * FROM products ORDER BY RAND() LIMIT 4");
         
         while($row = $stmt->fetch()) {
             ?>
